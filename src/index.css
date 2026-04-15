@@ -1,5 +1,47 @@
-body {
+/* ===== RESET (FIXES WHITE BORDER) ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
+  padding: 0;
+  background: #0b0b0b;
+  color: #f5f5f5;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+}
+
+/* Remove default link styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Images scale properly */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===== MOBILE NAV FIX ===== */
+
+/* Hide hamburger on desktop */
+.mobile-toggle {
+  display: none;
+}
+
+/* Desktop nav default */
+.desktop-nav {
+  display: flex;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .desktop-nav {
+    display: none !important;
+  }
 }
