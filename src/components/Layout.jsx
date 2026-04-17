@@ -2,10 +2,16 @@ import { Link, useLocation } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/logo.png";
 
+import facebookIcon from "../icon/facebook.svg";
+import xIcon from "../icon/x.svg";
+import instagramIcon from "../icon/instagram.svg";
+import tiktokIcon from "../icon/tiktok.svg";
+
 export default function Layout({ children }) {
   const [showTeams, setShowTeams] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTeamsOpen, setMobileTeamsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const dropdownRef = useRef();
   const headerRef = useRef();
@@ -13,14 +19,24 @@ export default function Layout({ children }) {
 
   const [headerHeight, setHeaderHeight] = useState(70);
 
-  // Detect header height
+  // Responsive check
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Set header height
   useEffect(() => {
     if (headerRef.current) {
       setHeaderHeight(headerRef.current.offsetHeight);
     }
   }, []);
 
-  // Close dropdown if clicking outside
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -32,25 +48,41 @@ export default function Layout({ children }) {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  const linkStyle = (path) => ({
-    color: location === path ? "#FFC107" : "#f5f5f5",
+  const linkStyle = {
+    color: "#f5f5f5",
     textDecoration: "none",
     fontWeight: "600",
     letterSpacing: "0.8px",
     fontSize: "14px",
     textTransform: "uppercase",
-    transition: "0.2s",
-  });
+    position: "relative",
+    paddingBottom: "4px",
+    cursor: "pointer",
+  };
+
+  const isActive = (path) => {
+    if (path === "/") return location === "/";
+    return location.startsWith(path);
+  };
+
+  const handleHover = (e, path, entering) => {
+    const line = e.currentTarget.querySelector(".underline");
+    if (!line) return;
+
+    if (!isActive(path)) {
+      line.style.width = entering ? "100%" : "0%";
+    }
+  };
 
   return (
     <div style={{ background: "#0b0b0b", color: "#f5f5f5" }}>
-      
+
       {/* HEADER */}
       <header
         ref={headerRef}
         style={{
           background: "#000",
-          padding: "10px 20px",
+          padding: "12px 30px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -60,110 +92,120 @@ export default function Layout({ children }) {
           zIndex: 1000,
         }}
       >
-        {/* LEFT */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <img src={logo} alt="Logo" style={{ height: "40px" }} />
-          <h2 style={{
-            margin: 0,
-            color: "#FFC107",
-            fontSize: "18px",
-            letterSpacing: "1px"
-          }}>
-            JARROVIANS RUFC
-          </h2>
-        </div>
+        {/* LOGO */}
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer" }}>
+            <img src={logo} alt="Logo" style={{ height: "42px" }} />
+            <h2 style={{
+              margin: 0,
+              color: "#FFC107",
+              fontSize: "18px",
+              letterSpacing: "1px"
+            }}>
+              JARROVIANS RUFC
+            </h2>
+          </div>
+        </Link>
 
-        {/* HAMBURGER */}
-        <div
-          onClick={() => setMobileOpen(true)}
-          className="mobile-toggle"
-          style={{
-            fontSize: "26px",
-            cursor: "pointer",
-            color: "#FFC107",
-          }}
-        >
-          ☰
-        </div>
+        {/* MOBILE HAMBURGER */}
+        {isMobile && (
+          <div
+            onClick={() => setMobileOpen(true)}
+            style={{
+              fontSize: "26px",
+              cursor: "pointer",
+              color: "#FFC107",
+            }}
+          >
+            ☰
+          </div>
+        )}
 
         {/* DESKTOP NAV */}
-        <nav
-          className="desktop-nav"
-          style={{
-            display: "flex",
-            gap: "20px",
-            alignItems: "center",
-          }}
-        >
-          <Link href="/" style={linkStyle("/")}>Home</Link>
-
-          {/* TEAMS */}
-          <div
-            style={{ position: "relative" }}
-            ref={dropdownRef}
-            onMouseEnter={() => setShowTeams(true)}
-            onMouseLeave={() => setShowTeams(false)}
-          >
-            <Link
-              href="/teams"
-              style={{
-                color: location.startsWith("/teams") ? "#FFC107" : "#f5f5f5",
-                textDecoration: "none",
-                fontWeight: "600",
-              }}
-            >
-              Teams ▾
-            </Link>
-
-            {showTeams && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  left: 0,
-                  background: "#111",
-                  padding: "10px",
-                  borderRadius: "6px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                  minWidth: "200px",
-                  zIndex: 1000,
-                  border: "1px solid #333",
-                }}
+        {!isMobile && (
+          <nav style={{ display: "flex", gap: "28px", alignItems: "center" }}>
+            {[{ name: "Home", path: "/" }, { name: "About", path: "/about" }].map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                style={linkStyle}
+                onMouseEnter={(e) => handleHover(e, item.path, true)}
+                onMouseLeave={(e) => handleHover(e, item.path, false)}
               >
-                <Link href="/teams/mens1">Mens 1st XV</Link>
-                <Link href="/teams/mens2">Mens 2nd XV</Link>
-                <Link href="/teams/womens">Womens XV</Link>
-                <Link href="/teams/juniors">Juniors</Link>
-                <Link href="/teams/vets">Vets</Link>
-              </div>
-            )}
-          </div>
+                {item.name}
+                <div
+                  className="underline"
+                  style={{
+                    ...underlineStyle,
+                    width: isActive(item.path) ? "100%" : "0%",
+                  }}
+                />
+              </Link>
+            ))}
 
-          <Link href="/about" style={linkStyle("/about")}>About</Link>
-          <Link href="/gallery" style={linkStyle("/gallery")}>Gallery</Link>
-          <Link href="/shop" style={linkStyle("/shop")}>Shop</Link>
-          <Link href="/sponsors" style={linkStyle("/sponsors")}>Sponsors</Link> {/* ✅ ADDED */}
-          <Link href="/contact" style={linkStyle("/contact")}>Contact</Link>
-        </nav>
-
-        {/* MOBILE MENU */}
-        <>
-          {/* OVERLAY */}
-          {mobileOpen && (
+            {/* TEAMS DROPDOWN */}
             <div
-              onClick={() => setMobileOpen(false)}
-              style={{
-                position: "fixed",
-                inset: 0,
-                background: "rgba(0,0,0,0.6)",
-                zIndex: 998,
-              }}
-            />
-          )}
+              ref={dropdownRef}
+              onMouseEnter={() => setShowTeams(true)}
+              onMouseLeave={() => setShowTeams(false)}
+              style={{ position: "relative" }}
+            >
+              <Link href="/teams" style={linkStyle}>
+                Teams ▾
+                <div
+                  className="underline"
+                  style={{
+                    ...underlineStyle,
+                    width: isActive("/teams") ? "100%" : "0%",
+                  }}
+                />
+              </Link>
 
-          {/* SLIDE PANEL */}
+              {showTeams && (
+                <div style={dropdownStyle}>
+                  <Link href="/teams/mens1">Mens 1st XV</Link>
+                  <Link href="/teams/mens2">Mens 2nd XV</Link>
+                  <Link href="/teams/womens">Womens XV</Link>
+                  <Link href="/teams/juniors">Juniors</Link>
+                  <Link href="/teams/vets">Vets</Link>
+                </div>
+              )}
+            </div>
+
+            {[
+              { name: "Gallery", path: "/gallery" },
+              { name: "Shop", path: "/shop" },
+              { name: "Sponsors", path: "/sponsors" },
+              { name: "Contact", path: "/contact" },
+            ].map((item) => (
+              <Link key={item.path} href={item.path} style={linkStyle}>
+                {item.name}
+                <div
+                  className="underline"
+                  style={{
+                    ...underlineStyle,
+                    width: isActive(item.path) ? "100%" : "0%",
+                  }}
+                />
+              </Link>
+            ))}
+          </nav>
+        )}
+      </header>
+
+      {/* MOBILE MENU */}
+      {isMobile && mobileOpen && (
+        <>
+          <div
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,0.6)",
+              zIndex: 998,
+            }}
+          />
+
           <div
             style={{
               position: "fixed",
@@ -177,73 +219,112 @@ export default function Layout({ children }) {
               flexDirection: "column",
               gap: "15px",
               zIndex: 999,
-              transform: mobileOpen ? "translateX(0)" : "translateX(-100%)",
-              transition: "0.3s ease",
             }}
           >
             <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
+            <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
 
-            {/* MOBILE TEAMS */}
             <div>
               <div
                 onClick={() => setMobileTeamsOpen(!mobileTeamsOpen)}
-                style={{
-                  cursor: "pointer",
-                  color: "#FFC107",
-                  fontWeight: "600",
-                }}
+                style={{ color: "#FFC107", cursor: "pointer" }}
               >
                 Teams ▾
               </div>
 
               {mobileTeamsOpen && (
-                <div style={{
-                  marginTop: "10px",
-                  paddingLeft: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px"
-                }}>
-                  <Link href="/teams/mens1" onClick={() => setMobileOpen(false)}>Mens 1st XV</Link>
-                  <Link href="/teams/mens2" onClick={() => setMobileOpen(false)}>Mens 2nd XV</Link>
-                  <Link href="/teams/womens" onClick={() => setMobileOpen(false)}>Womens XV</Link>
-                  <Link href="/teams/juniors" onClick={() => setMobileOpen(false)}>Juniors</Link>
-                  <Link href="/teams/vets" onClick={() => setMobileOpen(false)}>Vets</Link>
+                <div style={{ paddingLeft: "10px", marginTop: "10px" }}>
+                  <Link href="/teams/mens1">Mens 1st XV</Link>
+                  <Link href="/teams/mens2">Mens 2nd XV</Link>
+                  <Link href="/teams/womens">Womens XV</Link>
+                  <Link href="/teams/vets">Vets</Link>
                 </div>
               )}
             </div>
-
-            <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
-            <Link href="/gallery" onClick={() => setMobileOpen(false)}>Gallery</Link>
-            <Link href="/shop" onClick={() => setMobileOpen(false)}>Shop</Link>
-            <Link href="/sponsors" onClick={() => setMobileOpen(false)}>Sponsors</Link> {/* ✅ ADDED */}
-            <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
           </div>
         </>
-      </header>
+      )}
 
       {/* CONTENT */}
-      <main
-        style={{
-          minHeight: "80vh",
-          paddingTop: `${headerHeight}px`,
-        }}
-      >
+      <main style={{ minHeight: "80vh", paddingTop: `${headerHeight}px` }}>
         {children}
       </main>
 
       {/* FOOTER */}
-      <footer
-        style={{
-          background: "#000",
-          color: "#aaa",
-          textAlign: "center",
-          padding: "20px",
-          borderTop: "1px solid #222",
-        }}
-      >
-        © {new Date().getFullYear()} Jarrovians RUFC
+      <footer style={footerStyle}>
+        <div style={footerContent}>
+          <p style={footerText}>Follow Jarrovians RUFC</p>
+
+          <div style={socialRow}>
+            <a href="https://www.facebook.com/JarroviansRUFC/" target="_blank" rel="noreferrer">
+              <img src={facebookIcon} style={iconStyle} />
+            </a>
+            <a href="https://x.com/JarroviansRUFC" target="_blank" rel="noreferrer">
+              <img src={xIcon} style={iconStyle} />
+            </a>
+            <a href="https://www.instagram.com/jarrovians_rufc/" target="_blank" rel="noreferrer">
+              <img src={instagramIcon} style={iconStyle} />
+            </a>
+            <a href="https://www.tiktok.com/@jarroviansrufc" target="_blank" rel="noreferrer">
+              <img src={tiktokIcon} style={iconStyle} />
+            </a>
+          </div>
+        </div>
       </footer>
     </div>
   );
 }
+
+// STYLES
+const underlineStyle = {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  height: "2px",
+  background: "#FFC107",
+  transition: "width 0.3s ease",
+};
+
+const dropdownStyle = {
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  background: "#111",
+  padding: "10px",
+  borderRadius: "6px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  minWidth: "200px",
+  border: "1px solid #333",
+};
+
+const footerStyle = {
+  marginTop: "60px",
+  borderTop: "1px solid #222",
+  padding: "30px 20px",
+  background: "#000",
+};
+
+const footerContent = {
+  maxWidth: "1100px",
+  margin: "0 auto",
+  textAlign: "center",
+};
+
+const footerText = {
+  color: "#aaa",
+  marginBottom: "15px",
+};
+
+const socialRow = {
+  display: "flex",
+  justifyContent: "center",
+  gap: "20px",
+};
+
+const iconStyle = {
+  width: "28px",
+  height: "28px",
+  filter: "invert(1)",
+};

@@ -45,3 +45,6 @@ img {
     display: none !important;
   }
 }
+.fixtures-scroll::-webkit-scrollbar {
+  display: none;
+}

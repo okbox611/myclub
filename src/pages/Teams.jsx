@@ -1,4 +1,7 @@
 import { useRoute, Link } from "wouter";
+import FixturesList from "../components/FixturesList";
+import ResultsList from "../components/ResultsList";
+import LeagueTable from "../components/LeagueTable";
 
 // Vets
 import terry from "../assets/terry.jfif";
@@ -32,7 +35,6 @@ const cardStyle = (img) => ({
   position: "relative",
   cursor: "pointer",
   overflow: "hidden",
-  transition: "0.3s ease",
 });
 
 const overlayStyle = {
@@ -53,51 +55,47 @@ export default function Teams() {
   const [match, params] = useRoute("/teams/:team");
   const team = params?.team;
 
-  // ========================
-  // 1ST TEAM
-  // ========================
-  if (team === "mens1") {
-    return (
-      <div>
-        <div style={{
-          backgroundImage: `url(${firstTeam})`,
-          height: "400px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
-          <h1 style={{ position: "relative", color: "#FFC107", fontSize: "48px" }}>
-            1st XV
-          </h1>
+// ========================
+// 1ST TEAM
+// ========================
+if (team === "mens1") {
+  return (
+    <div>
+      <Hero img={firstTeam} title="1st XV" />
+
+      <Container>
+        <p style={textStyle}>
+          Jarrovians RUFC 1st XV compete in Counties 2 Durham & Northumberland,
+          representing the highest level of rugby within the club.
+        </p>
+
+        <h2 style={sectionTitle}>Leadership Team</h2>
+
+        {/* ✅ IMPROVED LAYOUT */}
+        <div style={twoColumn}>
+          
+          {/* IMAGE */}
+          <div style={imageCard}>
+            <img src={firstCap} style={imageStyle} />
+          </div>
+
+          {/* TABLE (LESS BOXED, MORE NATURAL) */}
+          <div style={tableWrapper}>
+            <LeagueTable />
+          </div>
+
         </div>
 
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
-          <p style={{ color: "#ddd", lineHeight: "1.8", maxWidth: "800px" }}>
-            Jarrovians RUFC 1st XV compete in Counties 2 Durham & Northumberland,
-            representing the highest level of rugby within the club. A competitive
-            squad combining experience and youth, consistently performing across
-            the North East.
-          </p>
+        <p style={mutedText}>
+          Captain: Deacon Wallace | Vice Captain: James Pocklington
+        </p>
 
-          <h2 style={{ color: "#FFC107", marginTop: "40px" }}>Leadership Team</h2>
-
-          <img
-            src={firstCap}
-            alt="1st Team Captains"
-            style={{ width: "100%", maxWidth: "500px", borderRadius: "10px", marginTop: "20px" }}
-          />
-
-          <p style={{ color: "#aaa", marginTop: "10px" }}>
-            Captain: Deacon Wallace | Vice Captain: James Pocklington
-          </p>
-        </div>
-      </div>
-    );
-  }
+        <FixturesList team="first" />
+        <ResultsList team="first" />
+      </Container>
+    </div>
+  );
+}
 
   // ========================
   // 2ND TEAM
@@ -105,40 +103,24 @@ export default function Teams() {
   if (team === "mens2") {
     return (
       <div>
-        <div style={{
-          backgroundImage: `url(${secondTeam})`,
-          height: "400px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
-          <h1 style={{ position: "relative", color: "#FFC107", fontSize: "48px" }}>
-            2nd XV
-          </h1>
-        </div>
+        <Hero img={secondTeam} title="2nd XV" />
 
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
-          <p style={{ color: "#ddd", lineHeight: "1.8", maxWidth: "800px" }}>
-            The 2nd XV plays a key role in player development and squad depth,
-            offering competitive rugby while supporting progression into the 1st XV.
+        <Container>
+          <p style={textStyle}>
+            The 2nd XV plays a key role in development and squad depth.
           </p>
 
-          <h2 style={{ color: "#FFC107", marginTop: "40px" }}>Leadership Team</h2>
+          <h2 style={sectionTitle}>Leadership Team</h2>
 
-          <img
-            src={secondCap}
-            alt="2nd Team Captains"
-            style={{ width: "100%", maxWidth: "500px", borderRadius: "10px", marginTop: "20px" }}
-          />
+          <img src={secondCap} style={imageStyle} />
 
-          <p style={{ color: "#aaa", marginTop: "10px" }}>
+          <p style={mutedText}>
             Captain: Aaron Keelan | Vice Captain: Joe Watson
           </p>
-        </div>
+
+          <FixturesList team="second" />
+          <ResultsList team="second" />
+        </Container>
       </div>
     );
   }
@@ -149,41 +131,24 @@ export default function Teams() {
   if (team === "womens") {
     return (
       <div>
-        <div style={{
-          backgroundImage: `url(${ladiesTeam})`,
-          height: "400px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
-          <h1 style={{ position: "relative", color: "#FFC107", fontSize: "48px" }}>
-            WOMENS XV
-          </h1>
-        </div>
+        <Hero img={ladiesTeam} title="Womens XV" />
 
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
-          <p style={{ color: "#ddd", lineHeight: "1.8", maxWidth: "800px" }}>
-            The Jarrovians Women’s XV is a growing and inclusive section of the club,
-            offering competitive and social rugby opportunities for players of all
-            experience levels.
+        <Container>
+          <p style={textStyle}>
+            A growing and inclusive section offering competitive rugby.
           </p>
 
-          <h2 style={{ color: "#FFC107", marginTop: "40px" }}>Leadership Team</h2>
+          <h2 style={sectionTitle}>Leadership Team</h2>
 
-          <img
-            src={ladiesCap}
-            alt="Womens Team Captains"
-            style={{ width: "100%", maxWidth: "500px", borderRadius: "10px", marginTop: "20px" }}
-          />
+          <img src={ladiesCap} style={imageStyle} />
 
-          <p style={{ color: "#aaa", marginTop: "10px" }}>
+          <p style={mutedText}>
             Captain: Beth Robinson | Vice Captain: Lia Sundin
           </p>
-        </div>
+
+          <FixturesList team="women" />
+          <ResultsList team="women" />
+        </Container>
       </div>
     );
   }
@@ -194,67 +159,157 @@ export default function Teams() {
   if (team === "vets") {
     return (
       <div>
-        <div style={{
-          backgroundImage: `url(${vets1})`,
-          height: "400px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
-          <h1 style={{ position: "relative", color: "#FFC107", fontSize: "48px" }}>
-            VETS (OVER 35s)
-          </h1>
-        </div>
+        <Hero img={vets1} title="VETS (OVER 35s)" />
 
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
-          <p style={{ color: "#ddd", lineHeight: "1.8", maxWidth: "800px" }}>
-            The Vets team competes in the Northumberland Vets league, offering
-            friendly Friday night rugby for players aged 35+.
+        <Container>
+          <p style={textStyle}>
+            Competitive but social rugby for players aged 35+.
           </p>
 
-          <img
-            src={terry}
-            style={{ width: "150px", borderRadius: "10px", marginTop: "20px" }}
-          />
+          <img src={terry} style={{ width: "150px", borderRadius: "10px" }} />
+          <p style={mutedText}>Terry Farrell</p>
 
-          <p style={{ color: "#aaa" }}>Terry Farrell</p>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "20px"
-          }}>
+          <div style={galleryGrid}>
             {[vets1, vets2, vets3, vets4, vets5].map((img, i) => (
-              <img key={i} src={img} style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px" }} />
+              <img key={i} src={img} style={galleryImg} />
             ))}
           </div>
-        </div>
+        </Container>
       </div>
     );
   }
 
   // ========================
-  // LANDING PAGE (NEW)
+  // LANDING PAGE
   // ========================
   return (
-    <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
-      <h1 style={{ color: "#FFC107", marginBottom: "30px" }}>Our Teams</h1>
+    <Container>
+      <h1 style={sectionTitle}>Our Teams</h1>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: "20px",
-      }}>
-        <Link href="/teams/mens1"><div style={cardStyle(firstTeam)}><div style={overlayStyle}><h2>1st XV</h2></div></div></Link>
-        <Link href="/teams/mens2"><div style={cardStyle(secondTeam)}><div style={overlayStyle}><h2>2nd XV</h2></div></div></Link>
-        <Link href="/teams/womens"><div style={cardStyle(ladiesTeam)}><div style={overlayStyle}><h2>Womens XV</h2></div></div></Link>
-        <Link href="/teams/vets"><div style={cardStyle(vets1)}><div style={overlayStyle}><h2>Vets</h2></div></div></Link>
+      <div style={gridStyle}>
+        <Link href="/teams/mens1">
+          <div style={cardStyle(firstTeam)}>
+            <div style={overlayStyle}><h2>1st XV</h2></div>
+          </div>
+        </Link>
+
+        <Link href="/teams/mens2">
+          <div style={cardStyle(secondTeam)}>
+            <div style={overlayStyle}><h2>2nd XV</h2></div>
+          </div>
+        </Link>
+
+        <Link href="/teams/womens">
+          <div style={cardStyle(ladiesTeam)}>
+            <div style={overlayStyle}><h2>Womens XV</h2></div>
+          </div>
+        </Link>
+
+        <Link href="/teams/vets">
+          <div style={cardStyle(vets1)}>
+            <div style={overlayStyle}><h2>Vets</h2></div>
+          </div>
+        </Link>
       </div>
-    </div>
+    </Container>
   );
 }
+
+// ========================
+// REUSABLE COMPONENTS
+// ========================
+const Container = ({ children }) => (
+  <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
+    {children}
+  </div>
+);
+
+const Hero = ({ img, title }) => (
+  <div style={{
+    backgroundImage: `url(${img})`,
+    height: "400px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}>
+    <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)" }} />
+    <h1 style={{ position: "relative", color: "#FFC107", fontSize: "48px" }}>
+      {title}
+    </h1>
+  </div>
+);
+
+// ========================
+// STYLES
+// ========================
+const twoColumn = {
+  display: "grid",
+  gridTemplateColumns: "1.1fr 0.9fr", // 👈 more space for table
+  gap: "24px",
+  alignItems: "stretch",
+};
+
+const imageCard = {
+  background: "#111",
+  border: "1px solid #222",
+  borderRadius: "12px",
+  padding: "10px",
+};
+
+const tableCard = {
+  background: "#111",
+  border: "1px solid #222",
+  borderRadius: "12px",
+  padding: "10px",
+};
+
+const gridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "20px",
+};
+
+const galleryGrid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "20px",
+  marginTop: "20px",
+};
+
+const galleryImg = {
+  width: "100%",
+  height: "200px",
+  objectFit: "cover",
+  borderRadius: "10px",
+};
+
+const imageStyle = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  borderRadius: "10px",
+};
+
+const sectionTitle = {
+  color: "#FFC107",
+  marginTop: "30px",
+};
+
+const textStyle = {
+  color: "#ddd",
+  lineHeight: "1.8",
+  maxWidth: "800px",
+};
+
+const mutedText = {
+  color: "#aaa",
+  marginTop: "10px",
+};
+const tableWrapper = {
+  display: "flex",
+  alignItems: "flex-start",
+  width: "100%",
+};
