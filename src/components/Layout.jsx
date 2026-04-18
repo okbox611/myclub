@@ -193,57 +193,86 @@ export default function Layout({ children }) {
         )}
       </header>
 
-      {/* MOBILE MENU */}
-      {isMobile && mobileOpen && (
-        <>
-          <div
-            onClick={() => setMobileOpen(false)}
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(0,0,0,0.6)",
-              zIndex: 998,
-            }}
-          />
+      {/* MOBILE MENU OVERLAY */}
+      {mobileOpen && (
+        <div
+          onClick={() => setMobileOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.6)",
+            zIndex: 998,
+          }}
+        />
+      )}
 
+      {/* MOBILE MENU PANEL */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "260px",
+          height: "100%",
+          background: "#000",
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+          zIndex: 999,
+          transform: mobileOpen ? "translateX(0)" : "translateX(-100%)",
+          transition: "0.3s ease",
+        }}
+      >
+        <div
+          onClick={() => setMobileOpen(false)}
+          style={{
+            color: "#FFC107",
+            fontSize: "22px",
+            marginBottom: "10px",
+            cursor: "pointer",
+          }}
+        >
+          ✕ Close
+        </div>
+
+        <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
+        <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
+
+        <div>
           <div
+            onClick={() => setMobileTeamsOpen(!mobileTeamsOpen)}
             style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "260px",
-              height: "100%",
-              background: "#000",
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "15px",
-              zIndex: 999,
+              cursor: "pointer",
+              color: "#FFC107",
+              fontWeight: "600",
             }}
           >
-            <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
-            <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
-
-            <div>
-              <div
-                onClick={() => setMobileTeamsOpen(!mobileTeamsOpen)}
-                style={{ color: "#FFC107", cursor: "pointer" }}
-              >
-                Teams ▾
-              </div>
-
-              {mobileTeamsOpen && (
-                <div style={{ paddingLeft: "10px", marginTop: "10px" }}>
-                  <Link href="/teams/mens1">Mens 1st XV</Link>
-                  <Link href="/teams/mens2">Mens 2nd XV</Link>
-                  <Link href="/teams/womens">Womens XV</Link>
-                  <Link href="/teams/vets">Vets</Link>
-                </div>
-              )}
-            </div>
+            Teams ▾
           </div>
-        </>
-      )}
+
+          {mobileTeamsOpen && (
+            <div style={{
+              marginTop: "10px",
+              paddingLeft: "10px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}>
+              <Link href="/teams/mens1">Mens 1st XV</Link>
+              <Link href="/teams/mens2">Mens 2nd XV</Link>
+              <Link href="/teams/womens">Womens XV</Link>
+              <Link href="/teams/juniors">Juniors</Link>
+              <Link href="/teams/vets">Vets</Link>
+            </div>
+          )}
+        </div>
+
+        <Link href="/gallery" onClick={() => setMobileOpen(false)}>Gallery</Link>
+        <Link href="/shop" onClick={() => setMobileOpen(false)}>Shop</Link>
+        <Link href="/sponsors" onClick={() => setMobileOpen(false)}>Sponsors</Link>
+        <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+      </div>
 
       {/* CONTENT */}
       <main style={{ minHeight: "80vh", paddingTop: `${headerHeight}px` }}>
