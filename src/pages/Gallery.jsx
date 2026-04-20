@@ -1,91 +1,102 @@
-import gallery from "../data/gallery";
+import { useEffect, useState } from "react";
+import sanityClient from "../sanityClient";
 
 export default function Gallery() {
-  return (
-    <div
-      style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "40px 20px",
-      }}
-    >
-      <h1 style={{ color: "#FFC107", textAlign: "center" }}>
-        Gallery
-      </h1>
+  const [gallery, setGallery] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null); // ✅ NEW
 
-      <p
-        style={{
-          color: "#aaa",
-          textAlign: "center",
-          marginBottom: "30px",
-        }}
-      >
-        Match days, training, and club events
+  useEffect(() => {
+    const query = `*[_type == "gallery"]{
+      _id,
+      title,
+      images[]{
+        asset->{
+          url
+        }
+      }
+    }`;
+
+    sanityClient.fetch(query).then(setGallery);
+  }, []);
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h1 style={{ color: "#FFC107" }}>Gallery</h1>
+
+      <p style={blurbStyle}>
+        Take a look through the latest moments from around Jarrovians RUFC.
+        From matchday action and big wins to social events and club life,
+        our gallery captures what makes the club special both on and off the pitch.
       </p>
 
-      {/* ALBUM GRID */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "25px",
-        }}
-      >
-        {gallery.map((album, i) => (
-          <div
-            key={i}
-            style={{
-              background: "#111",
-              borderRadius: "12px",
-              overflow: "hidden",
-              border: "1px solid #222",
-              cursor: "pointer",
-              transition: "0.3s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-5px)";
-              e.currentTarget.style.boxShadow =
-                "0 10px 25px rgba(255,193,7,0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            {/* COVER IMAGE */}
-            <img
-              src={album.cover}
-              alt={album.title}
-              style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-              }}
-            />
+      {gallery.map((album) => (
+        <div key={album._id} style={{ marginBottom: "40px" }}>
+          <h2 style={{ color: "#fff" }}>{album.title}</h2>
 
-            {/* TITLE */}
-            <div style={{ padding: "15px", textAlign: "center" }}>
-              <h3 style={{ margin: 0 }}>{album.title}</h3>
-            </div>
+          <div style={gridStyle}>
+            {album.images?.map((img, i) => (
+              <img
+                key={i}
+                src={img.asset.url}
+                style={imageStyle}
+                alt="Jarrovians gallery"
+                onClick={() => setSelectedImage(img.asset.url)} // ✅ CLICK
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
 
-      {/* FACEBOOK LINK */}
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
-        <a
-          href="https://www.facebook.com/YOUR_PAGE"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: "#FFC107",
-            textDecoration: "none",
-            fontWeight: "600",
-          }}
-        >
-          View full gallery on Facebook →
-        </a>
-      </div>
+      {/* ✅ LIGHTBOX */}
+      {selectedImage && (
+        <div style={lightboxOverlay} onClick={() => setSelectedImage(null)}>
+          <img src={selectedImage} style={lightboxImage} />
+        </div>
+      )}
     </div>
   );
 }
+
+// ========================
+// STYLES
+// ========================
+
+const blurbStyle = {
+  color: "#ccc",
+  maxWidth: "800px",
+  lineHeight: "1.6",
+  marginBottom: "25px",
+};
+
+const gridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "15px",
+  marginTop: "15px",
+};
+
+const imageStyle = {
+  width: "100%",
+  height: "200px",
+  objectFit: "cover",
+  borderRadius: "10px",
+  cursor: "pointer", // ✅ UX improvement
+  transition: "0.2s ease",
+};
+
+const lightboxOverlay = {
+  position: "fixed",
+  inset: 0,
+  background: "rgba(0,0,0,0.9)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 9999,
+  cursor: "pointer",
+};
+
+const lightboxImage = {
+  maxWidth: "90%",
+  maxHeight: "90%",
+  borderRadius: "10px",
+};

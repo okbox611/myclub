@@ -5,7 +5,7 @@ export default function LeagueTable() {
   const [table, setTable] = useState([]);
 
   useEffect(() => {
-    const query = `*[_type == "leagueTable"] | order(position asc)`;
+    const query = `*[_type == "leagueTable"] | order(points desc, won desc)`
 
     sanityClient.fetch(query).then((data) => {
       console.log("League table data:", data); // 👈 DEBUG
