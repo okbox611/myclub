@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // PLAYER SPONSORS
 import aaron from "../assets/aaron spon.jpg";
 import archie from "../assets/archie spon.jpg";
@@ -11,7 +13,7 @@ import jonny from "../assets/jonny spon.jpg";
 import lewis from "../assets/lewis spon.jpg";
 import peggie from "../assets/peggie spon.jpg";
 import pocks from "../assets/pocks spon.jpg";
-import rhys from "../assets/rhys spon.jpg";
+import rhys from "../assets/rhysspon.jpg";
 import ross from "../assets/ross spon.jpg";
 import seb from "../assets/seb spon.jpg";
 import tom from "../assets/tom spon.jpg";
@@ -34,8 +36,13 @@ import marie from "../assets/mariespon.jpg";
 import matas from "../assets/matashaspon.jpg";
 import megan from "../assets/meganspon.jpg";
 import molly from "../assets/mollyspon.jpg";
+import becks from "../assets/becksspon.jpg";
+import ian from "../assets/ianspon.jpg";
+import demi from "../assets/demispon.jpg";
 
 export default function Sponsors() {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const playerSponsors = [
     { name: "Aaron Keelan", img: aaron },
     { name: "Archie Archbold", img: archie },
@@ -43,34 +50,39 @@ export default function Sponsors() {
     { name: "Deacon Wallace", img: deacon },
     { name: "George Holman", img: george },
     { name: "Harry Archer", img: harry },
-    { name: "Jamie", img: jamie },
+    { name: "Jamie Harrison", img: jamie },
     { name: "Joe Watson", img: joe },
-    { name: "Jonny", img: jonny },
-    { name: "Lewis", img: lewis },
-    { name: "Peggie", img: peggie },
-    { name: "Pocklington", img: pocks },
-    { name: "Rhys", img: rhys },
-    { name: "Ross", img: ross },
-    { name: "Seb", img: seb },
-    { name: "Tom", img: tom },
-    { name: "Will Bo", img: willbo },
-    { name: "Will", img: will },
-    { name: "Will W", img: willw },
+    { name: "Jonny Holman", img: jonny },
+    { name: "Lewis Bentil", img: lewis },
+    { name: "George Peggie", img: peggie },
+    { name: "James Pocklington", img: pocks },
+    { name: "Rhys Williams", img: rhys },
+    { name: "Ross Dixon", img: ross },
+    { name: "Seb Pinto", img: seb },
+    { name: "Tom Hopwood", img: tom },
+    { name: "Will Boersma", img: willbo },
+    { name: "Will Bate", img: will },
+    { name: "Will Welsh", img: willw },
 
     { name: "Beth Robinson", img: beth },
-    { name: "Hollie", img: hollie },
-    { name: "Kelsey", img: kelsey },
-    { name: "Kensey", img: kensey },
-    { name: "Rachelle", img: rachelle },
-    { name: "Ridell", img: ridell },
-    { name: "Suzanne", img: suzanne },
-    { name: "Sam", img: sam },
-    { name: "Mac", img: mac },
-    { name: "Marie", img: marie },
+    { name: "Hollie Ritson", img: hollie },
+    { name: "Kelsey Lawson", img: kelsey },
+    { name: "Kensey Bailey", img: kensey },
+    { name: "Rachelle Ferguson", img: rachelle },
+    { name: "Chris Riddell", img: ridell },
+    { name: "Suzanne Gibbons", img: suzanne },
+    { name: "Sam Holliday", img: sam },
+    { name: "Chris Mcintosh", img: mac },
+    { name: "Marie Kennedy", img: marie },
 
-    { name: "Matas", img: matas },
-    { name: "Megan", img: megan },
-    { name: "Molly", img: molly },
+    { name: "Natasha Thorpe", img: matas },
+    { name: "Megan Boersma", img: megan },
+    { name: "Molly Smith", img: molly },
+    { name: "Becky Gibson", img: becks },
+    { name: "Ian Arkley", img: ian },
+    { name: "Demi Agar", img: demi }
+
+
   ];
 
   return (
@@ -131,7 +143,7 @@ export default function Sponsors() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "20px",
           }}
         >
@@ -145,25 +157,94 @@ export default function Sponsors() {
                 border: "1px solid #222",
                 textAlign: "center",
                 transition: "0.3s",
+                cursor: "pointer",
               }}
+              onClick={() => setSelectedImage(sponsor.img)}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0px)")}
             >
-              <img
-                src={sponsor.img}
-                alt={sponsor.name}
-                style={{
-                  width: "100%",
-                  height: "260px",
-                  objectFit: "cover",
-                }}
-              />
+              <div style={{ position: "relative" }}>
+                <img
+                  src={sponsor.img}
+                  alt={sponsor.name}
+                  style={{
+                    width: "100%",
+                   height: "auto",
+aspectRatio: "3 / 4",
+objectFit: "contain",
+background: "#000",
+                  }}
+                />
 
-              <div style={{ padding: "10px", color: "#FFC107" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "60px",
+                    background: "linear-gradient(transparent, rgba(0,0,0,0.9))",
+                  }}
+                />
+              </div>
+
+              <div
+                style={{
+                  padding: "12px",
+                  color: "#FFC107",
+                  fontWeight: "600",
+                  fontSize: "16px",
+                  letterSpacing: "0.5px",
+                  background: "#0d0d0d",
+                }}
+              >
                 {sponsor.name}
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* MODAL */}
+      {selectedImage && (
+        <div
+          onClick={() => setSelectedImage(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.9)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2000,
+            cursor: "pointer",
+          }}
+        >
+          <img
+            src={selectedImage}
+            style={{
+              maxWidth: "90%",
+              maxHeight: "90%",
+              borderRadius: "10px",
+              boxShadow: "0 0 30px rgba(0,0,0,0.8)",
+            }}
+          />
+
+          {/* CLOSE BUTTON */}
+          <div
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "30px",
+              fontSize: "30px",
+              color: "#FFC107",
+              cursor: "pointer",
+            }}
+          >
+            ✕
+          </div>
+        </div>
+      )}
     </div>
   );
 }

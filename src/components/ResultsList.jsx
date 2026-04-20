@@ -18,6 +18,8 @@ export default function ResultsList({ team }) {
 
   return (
     <div style={{ marginTop: "30px" }}>
+
+      {/* HEADER */}
       <h2 style={{ color: "#f5f5f5", marginBottom: "15px" }}>
         Results
       </h2>
@@ -31,10 +33,10 @@ export default function ResultsList({ team }) {
         const isLoss = game.ourScore < game.theirScore;
 
         const resultColor = isWin
-          ? "#4caf50"   // green
+          ? "#4caf50"
           : isLoss
-          ? "#f44336"   // red
-          : "#ddd";     // draw
+          ? "#f44336"
+          : "#ddd";
 
         return (
           <div key={game._id} style={cardStyle}>

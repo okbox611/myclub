@@ -55,47 +55,43 @@ export default function Teams() {
   const [match, params] = useRoute("/teams/:team");
   const team = params?.team;
 
-// ========================
-// 1ST TEAM
-// ========================
-if (team === "mens1") {
-  return (
-    <div>
-      <Hero img={firstTeam} title="1st XV" />
+  // ========================
+  // 1ST TEAM
+  // ========================
+  if (team === "mens1") {
+    return (
+      <div>
+        <Hero img={firstTeam} title="1st XV" />
 
-      <Container>
-        <p style={textStyle}>
-          Jarrovians RUFC 1st XV compete in Counties 2 Durham & Northumberland,
-          representing the highest level of rugby within the club.
-        </p>
+        <Container>
+          <p style={textStyle}>
+            Jarrovians RUFC 1st XV compete in Counties 2 Durham & Northumberland,
+            representing the highest level of rugby within the club.
+          </p>
 
-        <h2 style={sectionTitle}>Leadership Team</h2>
+          <h2 style={sectionTitle}>Leadership Team</h2>
 
-        {/* ✅ IMPROVED LAYOUT */}
-        <div style={twoColumn}>
-          
-          {/* IMAGE */}
-          <div style={imageCard}>
-            <img src={firstCap} style={imageStyle} />
+          <div style={twoColumn}>
+            <div style={imageCard}>
+              <img src={firstCap} style={imageStyle} />
+            </div>
+
+            <div style={tableWrapper}>
+              <LeagueTable />
+            </div>
           </div>
 
-          {/* TABLE (LESS BOXED, MORE NATURAL) */}
-          <div style={tableWrapper}>
-            <LeagueTable />
-          </div>
+          <p style={mutedText}>
+            Captain: Deacon Wallace | Vice Captain: James Pocklington
+          </p>
 
-        </div>
-
-        <p style={mutedText}>
-          Captain: Deacon Wallace | Vice Captain: James Pocklington
-        </p>
-
-        <FixturesList team="first" />
-        <ResultsList team="first" />
-      </Container>
-    </div>
-  );
-}
+          {/* ✅ FIXED */}
+          <FixturesList team="first" />
+          <ResultsList team="first" />
+        </Container>
+      </div>
+    );
+  }
 
   // ========================
   // 2ND TEAM
@@ -118,6 +114,7 @@ if (team === "mens1") {
             Captain: Aaron Keelan | Vice Captain: Joe Watson
           </p>
 
+          {/* ✅ FIXED */}
           <FixturesList team="second" />
           <ResultsList team="second" />
         </Container>
@@ -146,6 +143,7 @@ if (team === "mens1") {
             Captain: Beth Robinson | Vice Captain: Lia Sundin
           </p>
 
+          {/* ✅ FIXED */}
           <FixturesList team="women" />
           <ResultsList team="women" />
         </Container>
@@ -154,7 +152,7 @@ if (team === "mens1") {
   }
 
   // ========================
-  // VETS
+  // VETS (unchanged)
   // ========================
   if (team === "vets") {
     return (
@@ -216,7 +214,7 @@ if (team === "mens1") {
 }
 
 // ========================
-// REUSABLE COMPONENTS
+// COMPONENTS (unchanged)
 // ========================
 const Container = ({ children }) => (
   <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
@@ -243,11 +241,11 @@ const Hero = ({ img, title }) => (
 );
 
 // ========================
-// STYLES
+// STYLES (unchanged)
 // ========================
 const twoColumn = {
   display: "grid",
-  gridTemplateColumns: "1.1fr 0.9fr", // 👈 more space for table
+  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
   gap: "24px",
   alignItems: "stretch",
 };
@@ -288,7 +286,7 @@ const galleryImg = {
 
 const imageStyle = {
   width: "100%",
-  height: "100%",
+  height: "auto",
   objectFit: "cover",
   borderRadius: "10px",
 };
@@ -308,8 +306,10 @@ const mutedText = {
   color: "#aaa",
   marginTop: "10px",
 };
+
 const tableWrapper = {
   display: "flex",
-  alignItems: "flex-start",
+  flexDirection: "column",
   width: "100%",
+  overflowX: "auto",
 };

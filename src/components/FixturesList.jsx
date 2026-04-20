@@ -18,14 +18,18 @@ export default function FixturesList({ team }) {
 
   return (
     <div style={{ marginTop: "30px" }}>
+      
+      {/* HEADER */}
       <h2 style={{ color: "#f5f5f5", marginBottom: "15px" }}>
         Upcoming Fixtures
       </h2>
 
+      {/* EMPTY STATE */}
       {fixtures.length === 0 && (
         <p style={{ color: "#aaa" }}>No upcoming fixtures</p>
       )}
 
+      {/* FIXTURE LIST */}
       {fixtures.map((game) => (
         <div key={game._id} style={cardStyle}>
           <p style={{ color: "#ddd", margin: 0 }}>
