@@ -73,7 +73,7 @@ export default function Teams() {
 
           <div style={twoColumn}>
             <div style={imageCard}>
-              <img src={firstCap} style={imageStyle} />
+              <img src={firstCap} alt="Leadership Team" style={imageStyle} />
             </div>
 
             <div style={tableWrapper}>
@@ -85,7 +85,6 @@ export default function Teams() {
             Captain: Deacon Wallace | Vice Captain: James Pocklington
           </p>
 
-          {/* ✅ FIXED */}
           <FixturesList team="first" />
           <ResultsList team="first" />
         </Container>
@@ -108,13 +107,12 @@ export default function Teams() {
 
           <h2 style={sectionTitle}>Leadership Team</h2>
 
-          <img src={secondCap} style={imageStyle} />
+          <img src={secondCap} alt="Leadership Team" style={imageStyle} />
 
           <p style={mutedText}>
             Captain: Aaron Keelan | Vice Captain: Joe Watson
           </p>
 
-          {/* ✅ FIXED */}
           <FixturesList team="second" />
           <ResultsList team="second" />
         </Container>
@@ -137,13 +135,12 @@ export default function Teams() {
 
           <h2 style={sectionTitle}>Leadership Team</h2>
 
-          <img src={ladiesCap} style={imageStyle} />
+          <img src={ladiesCap} alt="Leadership Team" style={imageStyle} />
 
           <p style={mutedText}>
             Captain: Beth Robinson | Vice Captain: Lia Sundin
           </p>
 
-          {/* ✅ FIXED */}
           <FixturesList team="women" />
           <ResultsList team="women" />
         </Container>
@@ -152,7 +149,7 @@ export default function Teams() {
   }
 
   // ========================
-  // VETS (unchanged)
+  // VETS
   // ========================
   if (team === "vets") {
     return (
@@ -214,7 +211,7 @@ export default function Teams() {
 }
 
 // ========================
-// COMPONENTS (unchanged)
+// COMPONENTS
 // ========================
 const Container = ({ children }) => (
   <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "30px" }}>
@@ -241,7 +238,7 @@ const Hero = ({ img, title }) => (
 );
 
 // ========================
-// STYLES (unchanged)
+// STYLES (FIXED)
 // ========================
 const twoColumn = {
   display: "grid",
@@ -255,6 +252,8 @@ const imageCard = {
   border: "1px solid #222",
   borderRadius: "12px",
   padding: "10px",
+  height: "100%",        // ✅ FIX
+  display: "flex",       // ✅ FIX
 };
 
 const tableCard = {
@@ -286,7 +285,7 @@ const galleryImg = {
 
 const imageStyle = {
   width: "100%",
-  height: "auto",
+  height: "100%",        // ✅ FIX
   objectFit: "cover",
   borderRadius: "10px",
 };
