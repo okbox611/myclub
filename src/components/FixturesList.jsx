@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import sanityClient from "../sanityClient";
 
-export default function FixturesList({ team }) {
-  const [fixtures, setFixtures] = useState([]);
+export default function FixturesList({ team, items }) {
+  const [fetchedFixtures, setFetchedFixtures] = useState([]);
 
   useEffect(() => {
+    if (items) {
+      return;
+    }
+
     const query = `*[
       _type == "fixture" &&
       team == "${team}" &&
@@ -12,9 +16,11 @@ export default function FixturesList({ team }) {
     ] | order(date asc)`;
 
     sanityClient.fetch(query).then((data) => {
-      setFixtures(data);
+      setFetchedFixtures(data);
     });
-  }, [team]);
+  }, [items, team]);
+
+  const fixtures = items ?? fetchedFixtures;
 
   return (
     <div style={{ marginTop: "30px" }}>

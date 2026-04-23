@@ -1,16 +1,19 @@
-# React + Vite
+# Jarrovians RUFC Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Senior Team RFU Sync
 
-Currently, two official plugins are available:
+The senior team pages now read from a generated RFU data file for:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Mens 1st XV
+- Mens 2nd XV
+- Womens XV
 
-## React Compiler
+To refresh fixtures, results, and league tables from England Rugby for the configured season, run:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run sync:rfu
+```
 
-## Expanding the ESLint configuration
+That command rewrites [seniorRfuData.js](F:/projects/myclub/src/data/seniorRfuData.js:1), which is what the site uses for those three senior team pages.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+After syncing, rebuild or redeploy the site as normal.

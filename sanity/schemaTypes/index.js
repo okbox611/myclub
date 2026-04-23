@@ -1,5 +1,5 @@
 import fixture from "./fixture";
-import leagueTable from "./leagueTable";
+import leagueTable from "./leaguetable";
 import gallery from "./gallery";
 
-export const schemaTypes = [fixture, leagueTable,gallery];
+export const schemaTypes = [fixture, leagueTable, gallery];

@@ -2,6 +2,7 @@ import { useRoute, Link } from "wouter";
 import FixturesList from "../components/FixturesList";
 import ResultsList from "../components/ResultsList";
 import LeagueTable from "../components/LeagueTable";
+import seniorRfuData from "../data/seniorRfuData";
 
 // Vets
 import terry from "../assets/terry.jfif";
@@ -52,8 +53,9 @@ const overlayStyle = {
 // COMPONENT
 // ========================
 export default function Teams() {
-  const [match, params] = useRoute("/teams/:team");
+  const [, params] = useRoute("/teams/:team");
   const team = params?.team;
+  const seniorTeams = seniorRfuData.teams;
 
   // ========================
   // 1ST TEAM
@@ -77,7 +79,7 @@ export default function Teams() {
             </div>
 
             <div style={tableWrapper}>
-              <LeagueTable />
+              <LeagueTable items={seniorTeams.first.leagueTable} tableFor="first" />
             </div>
           </div>
 
@@ -85,8 +87,8 @@ export default function Teams() {
             Captain: Deacon Wallace | Vice Captain: James Pocklington
           </p>
 
-          <FixturesList team="first" />
-          <ResultsList team="first" />
+          <FixturesList items={seniorTeams.first.fixtures} team="first" />
+          <ResultsList items={seniorTeams.first.results} team="first" />
         </Container>
       </div>
     );
@@ -113,8 +115,9 @@ export default function Teams() {
             Captain: Aaron Keelan | Vice Captain: Joe Watson
           </p>
 
-          <FixturesList team="second" />
-          <ResultsList team="second" />
+          <LeagueTable items={seniorTeams.second.leagueTable} tableFor="second" />
+          <FixturesList items={seniorTeams.second.fixtures} team="second" />
+          <ResultsList items={seniorTeams.second.results} team="second" />
         </Container>
       </div>
     );
@@ -141,8 +144,9 @@ export default function Teams() {
             Captain: Beth Robinson | Vice Captain: Lia Sundin
           </p>
 
-          <FixturesList team="women" />
-          <ResultsList team="women" />
+          <LeagueTable items={seniorTeams.women.leagueTable} tableFor="women" />
+          <FixturesList items={seniorTeams.women.fixtures} team="women" />
+          <ResultsList items={seniorTeams.women.results} team="women" />
         </Container>
       </div>
     );
@@ -254,13 +258,6 @@ const imageCard = {
   padding: "10px",
   height: "100%",        // ✅ FIX
   display: "flex",       // ✅ FIX
-};
-
-const tableCard = {
-  background: "#111",
-  border: "1px solid #222",
-  borderRadius: "12px",
-  padding: "10px",
 };
 
 const gridStyle = {

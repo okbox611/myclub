@@ -62,6 +62,8 @@ export default function Layout({ children }) {
     position: "relative",
     paddingBottom: "4px",
     cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
   };
 
   const isActive = (path) => {
@@ -153,7 +155,7 @@ export default function Layout({ children }) {
                 ref={dropdownRef}
                 onMouseEnter={() => setShowTeams(true)}
                 onMouseLeave={() => setShowTeams(false)}
-                style={{ position: "relative" }}
+                style={{ position: "relative", display: "flex", alignItems: "center" }}
               >
                 <Link href="/teams" style={linkStyle}>
                   Teams ▾

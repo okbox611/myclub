@@ -4,8 +4,22 @@ export default {
   type: "document",
   fields: [
     {
+      name: "tableFor",
+      title: "Table For",
+      type: "string",
+      options: {
+        list: [
+          { title: "Mens 1st XV", value: "first" },
+          { title: "Mens 2nd XV", value: "second" },
+          { title: "Womens XV", value: "women" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "team",
-      title: "Team Name",
+      title: "Club / Team Name",
       type: "string",
     },
     {
@@ -38,7 +52,7 @@ export default {
   preview: {
     select: {
       title: "team",
-      subtitle: "position",
+      subtitle: "tableFor",
     },
   },
 };

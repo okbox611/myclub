@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import sanityClient from "../sanityClient";
 
-export default function ResultsList({ team }) {
-  const [results, setResults] = useState([]);
+export default function ResultsList({ team, items }) {
+  const [fetchedResults, setFetchedResults] = useState([]);
 
   useEffect(() => {
+    if (items) {
+      return;
+    }
+
     const query = `*[
       _type == "fixture" &&
       team == "${team}" &&
@@ -13,8 +17,10 @@ export default function ResultsList({ team }) {
       defined(theirScore)
     ] | order(date desc)`;
 
-    sanityClient.fetch(query).then(setResults);
-  }, [team]);
+    sanityClient.fetch(query).then(setFetchedResults);
+  }, [items, team]);
+
+  const results = items ?? fetchedResults;
 
   return (
     <div style={{ marginTop: "30px" }}>
@@ -44,9 +50,15 @@ export default function ResultsList({ team }) {
               {game.home ? "Home" : "Away"} vs {game.opponent}
             </p>
 
-            <p style={{ ...scoreStyle, color: resultColor }}>
-              {game.ourScore} - {game.theirScore}
-            </p>
+            {typeof game.ourScore === "number" && typeof game.theirScore === "number" ? (
+              <p style={{ ...scoreStyle, color: resultColor }}>
+                {game.ourScore} - {game.theirScore}
+              </p>
+            ) : (
+              <p style={{ ...scoreStyle, color: "#ddd" }}>
+                {game.resultNote || "Result recorded"}
+              </p>
+            )}
 
             <p style={{ color: "#aaa", margin: 0 }}>
               {new Date(game.date).toLocaleDateString("en-GB")}

@@ -1,25 +1,40 @@
 import { useEffect, useState } from "react";
 import sanityClient from "../sanityClient";
 
-export default function LeagueTable() {
-  const [table, setTable] = useState([]);
+export default function LeagueTable({ tableFor = "first", items }) {
+  const [fetchedTable, setFetchedTable] = useState([]);
 
   useEffect(() => {
-    const query = `*[_type == "leagueTable"] | order(points desc, won desc)`
+    if (items) {
+      return;
+    }
 
-    sanityClient.fetch(query).then((data) => {
-      console.log("League table data:", data); // 👈 DEBUG
-      setTable(data);
-    });
-  }, []);
+    const query = `*[
+      _type == "leagueTable" &&
+      (
+        tableFor == $tableFor ||
+        ($tableFor == "first" && !defined(tableFor))
+      )
+    ]{
+      _id,
+      "name": coalesce(name, team),
+      position,
+      played,
+      won,
+      lost,
+      points
+    } | order(position asc, points desc, won desc)`;
+
+    sanityClient.fetch(query, { tableFor }).then(setFetchedTable);
+  }, [items, tableFor]);
+
+  const table = items ?? fetchedTable;
 
   return (
     <div style={container}>
       <h3 style={title}>League Table</h3>
 
-      {table.length === 0 && (
-        <p style={{ color: "#aaa" }}>No table data</p>
-      )}
+      {table.length === 0 && <p style={{ color: "#aaa" }}>No table data</p>}
 
       <table style={tableStyle}>
         <thead>
@@ -38,7 +53,7 @@ export default function LeagueTable() {
             <tr
               key={team._id}
               style={
-                team.name === "Jarrovians"
+                team.name?.includes("Jarrovians")
                   ? highlightRow
                   : row
               }
@@ -57,7 +72,6 @@ export default function LeagueTable() {
   );
 }
 
-// STYLES
 const container = {
   background: "#111",
   border: "1px solid #222",
