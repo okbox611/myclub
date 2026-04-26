@@ -3,7 +3,6 @@ import { useState, useEffect, useRef, createContext } from "react";
 import logo from "../assets/logo.png";
 
 import facebookIcon from "../icon/facebook.svg";
-import xIcon from "../icon/x.svg";
 import instagramIcon from "../icon/instagram.svg";
 import tiktokIcon from "../icon/tiktok.svg";
 
@@ -301,9 +300,6 @@ export default function Layout({ children }) {
             <div style={socialRow}>
               <a href="https://www.facebook.com/JarroviansRUFC/" target="_blank" rel="noreferrer">
                 <img src={facebookIcon} style={iconStyle} />
-              </a>
-              <a href="https://x.com/JarroviansRUFC" target="_blank" rel="noreferrer">
-                <img src={xIcon} style={iconStyle} />
               </a>
               <a href="https://www.instagram.com/jarrovians_rufc/" target="_blank" rel="noreferrer">
                 <img src={instagramIcon} style={iconStyle} />
