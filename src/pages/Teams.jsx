@@ -396,6 +396,7 @@ export default function Teams() {
             Competitive but social rugby for players aged 35+.
           </p>
 
+          <h2 style={sectionTitle}>Vets Captain</h2>
           <img src={terry} style={{ width: "150px", borderRadius: "10px" }} />
           <p style={mutedText}>Terry Farrell</p>
 
