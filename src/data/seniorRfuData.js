@@ -1,18 +1,11 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-04-23T15:35:56.962Z",
+  "syncedAt": "2026-04-26T16:44:46.446Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
       "sourceUrl": "https://cluster.england-rfu.com/fixtures-and-results/full-matches?season=2025-2026&teamId=11078",
       "fixtures": [
-        {
-          "_id": "fixture.rfu.first.1204138",
-          "opponent": "Sedgefield",
-          "date": "2026-04-25T00:00:00.000Z",
-          "home": false,
-          "resultNote": "Match not set up"
-        },
         {
           "_id": "fixture.rfu.first.1258943",
           "opponent": "Yarm Eagles",
@@ -22,6 +15,14 @@ export default {
         }
       ],
       "results": [
+        {
+          "_id": "fixture.rfu.first.1204138",
+          "opponent": "Sedgefield",
+          "date": "2026-04-25T00:00:00.000Z",
+          "home": false,
+          "ourScore": 31,
+          "theirScore": 60
+        },
         {
           "_id": "fixture.rfu.first.1204133",
           "opponent": "Hartlepool Rovers",
@@ -216,27 +217,27 @@ export default {
           "_id": "leagueTable.rfu.first.66494.1377",
           "name": "Barnard Castle",
           "position": 1,
-          "played": 21,
-          "won": 21,
+          "played": 22,
+          "won": 22,
           "lost": 0,
-          "points": 103
+          "points": 108
         },
         {
           "_id": "leagueTable.rfu.first.66494.10480",
           "name": "Houghton",
           "position": 2,
-          "played": 21,
-          "won": 16,
+          "played": 22,
+          "won": 17,
           "lost": 5,
-          "points": 79
+          "points": 84
         },
         {
           "_id": "leagueTable.rfu.first.66494.25300",
           "name": "Whitley Bay Rockcliff",
           "position": 3,
-          "played": 21,
+          "played": 22,
           "won": 14,
-          "lost": 7,
+          "lost": 8,
           "points": 71
         },
         {
@@ -252,46 +253,46 @@ export default {
           "_id": "leagueTable.rfu.first.66494.11078",
           "name": "Jarrovians",
           "position": 5,
-          "played": 21,
+          "played": 22,
           "won": 12,
-          "lost": 9,
-          "points": 64
+          "lost": 10,
+          "points": 65
         },
         {
           "_id": "leagueTable.rfu.first.66494.9567",
           "name": "Hartlepool Rovers",
           "position": 6,
-          "played": 21,
+          "played": 22,
           "won": 10,
-          "lost": 9,
-          "points": 63
+          "lost": 10,
+          "points": 65
         },
         {
           "_id": "leagueTable.rfu.first.66494.18918",
           "name": "Sedgefield",
           "position": 7,
-          "played": 21,
-          "won": 9,
+          "played": 22,
+          "won": 10,
           "lost": 11,
-          "points": 52
+          "points": 57
         },
         {
           "_id": "leagueTable.rfu.first.66494.14784",
           "name": "North Shields",
           "position": 8,
-          "played": 21,
-          "won": 9,
+          "played": 22,
+          "won": 10,
           "lost": 12,
-          "points": 50
+          "points": 55
         },
         {
           "_id": "leagueTable.rfu.first.66494.899",
           "name": "Ashington",
           "position": 9,
-          "played": 21,
+          "played": 22,
           "won": 9,
-          "lost": 12,
-          "points": 50
+          "lost": 13,
+          "points": 52
         },
         {
           "_id": "leagueTable.rfu.first.66494.17572",
@@ -306,19 +307,19 @@ export default {
           "_id": "leagueTable.rfu.first.66494.26377",
           "name": "Yarm Eagles",
           "position": 11,
-          "played": 21,
-          "won": 3,
+          "played": 22,
+          "won": 4,
           "lost": 18,
-          "points": 20
+          "points": 25
         },
         {
           "_id": "leagueTable.rfu.first.66494.2631",
           "name": "Blyth",
           "position": 12,
-          "played": 21,
+          "played": 22,
           "won": 1,
-          "lost": 20,
-          "points": -4
+          "lost": 21,
+          "points": -3
         }
       ]
     },
@@ -545,16 +546,16 @@ export default {
     "women": {
       "label": "Womens XV",
       "sourceUrl": "https://cluster.england-rfu.com/fixtures-and-results/full-matches?season=2025-2026&teamId=128506",
-      "fixtures": [
+      "fixtures": [],
+      "results": [
         {
           "_id": "fixture.rfu.women.1225148",
           "opponent": "Consett & District Women",
           "date": "2026-04-26T00:00:00.000Z",
           "home": true,
-          "resultNote": "Match not set up"
-        }
-      ],
-      "results": [
+          "ourScore": 29,
+          "theirScore": 0
+        },
         {
           "_id": "fixture.rfu.women.1225144",
           "opponent": "Whitley Bay Rockcliff Roses Women",
@@ -692,19 +693,19 @@ export default {
           "_id": "leagueTable.rfu.women.66876.126836",
           "name": "Consett & District Women",
           "position": 6,
-          "played": 11,
+          "played": 12,
           "won": 2,
-          "lost": 9,
-          "points": 28
+          "lost": 10,
+          "points": 29
         },
         {
           "_id": "leagueTable.rfu.women.66876.128506",
           "name": "Jarrovians Women",
           "position": 7,
-          "played": 11,
-          "won": 0,
+          "played": 12,
+          "won": 1,
           "lost": 10,
-          "points": 17
+          "points": 21
         }
       ]
     }
