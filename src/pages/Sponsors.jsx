@@ -39,6 +39,8 @@ import molly from "../assets/mollyspon.jpg";
 import becks from "../assets/becksspon.jpg";
 import ian from "../assets/ianspon.jpg";
 import demi from "../assets/demispon.jpg";
+import representLogo from "../assets/R.E.P.R.E.S.E.N.T-Logo.png";
+import chiversLogo from "../assets/Chivers-Logo.jpg";
 
 export default function Sponsors() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -128,6 +130,33 @@ export default function Sponsors() {
         >
           We are incredibly grateful to our sponsors who support Jarrovians RUFC.
         </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "20px",
+            marginTop: "30px",
+          }}
+        >
+          <a
+            href="https://www.represent.global/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={logoCardStyle}
+          >
+            <img src={representLogo} alt="R.E.P.R.E.S.E.N.T" style={logoImageStyle} />
+          </a>
+
+          <a
+            href="https://www.chiverssolicitors.co.uk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={logoCardStyle}
+          >
+            <img src={chiversLogo} alt="Chivers Solicitors" style={logoImageStyle} />
+          </a>
+        </div>
 
         <h2
           style={{
@@ -248,3 +277,20 @@ background: "#000",
     </div>
   );
 }
+
+const logoCardStyle = {
+  background: "#111",
+  border: "1px solid #222",
+  borderRadius: "12px",
+  padding: "20px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "160px",
+};
+
+const logoImageStyle = {
+  maxWidth: "100%",
+  maxHeight: "110px",
+  objectFit: "contain",
+};
