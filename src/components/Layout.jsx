@@ -9,6 +9,8 @@ import tiktokIcon from "../icon/tiktok.svg";
 // ✅ Context
 export const MobileContext = createContext(false);
 
+const SITE_URL = "https://www.jarroviansrufc.co.uk";
+
 export default function Layout({ children }) {
   const [showTeams, setShowTeams] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,6 +40,27 @@ export default function Layout({ children }) {
       setHeaderHeight(headerRef.current.offsetHeight);
     }
   }, []);
+
+  useEffect(() => {
+    const normalizedPath = location === "/" ? "/" : location.replace(/\/+$/, "");
+    const canonicalUrl = `${SITE_URL}${normalizedPath}`;
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute("href", canonicalUrl);
+
+    let ogUrlMeta = document.querySelector('meta[property="og:url"]');
+    if (!ogUrlMeta) {
+      ogUrlMeta = document.createElement("meta");
+      ogUrlMeta.setAttribute("property", "og:url");
+      document.head.appendChild(ogUrlMeta);
+    }
+    ogUrlMeta.setAttribute("content", canonicalUrl);
+  }, [location]);
 
   // Close dropdown on outside click
   useEffect(() => {
