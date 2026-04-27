@@ -143,7 +143,7 @@ export default function Sponsors() {
             href="https://www.represent.global/"
             target="_blank"
             rel="noopener noreferrer"
-            style={logoCardStyle}
+            style={representLogoCardStyle}
           >
             <img src={representLogo} alt="R.E.P.R.E.S.E.N.T" style={logoImageStyle} />
           </a>
@@ -287,6 +287,12 @@ const logoCardStyle = {
   alignItems: "center",
   justifyContent: "center",
   minHeight: "160px",
+};
+
+const representLogoCardStyle = {
+  ...logoCardStyle,
+  background: "#FFC107",
+  border: "1px solid #d4a500",
 };
 
 const logoImageStyle = {

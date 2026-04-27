@@ -146,19 +146,19 @@ export default function Teams() {
               ? "Coached by Joe Watson, Willie Nelson and Tyler Butler"
       : null;
   const juniorTrainingText = juniorTeam?.slug === "u7"
-    ? "Trains Sunday mornings from 9.30am."
+    ? "Training: Sundays from 9.30am."
     : juniorTeam?.slug === "u8"
-      ? "Training Sundays 10am"
+      ? "Training: Sundays from 10am."
     : juniorTeam?.slug === "u9"
-      ? "Trains Sundays from 10am."
+      ? "Training: Sundays from 10am."
       : juniorTeam?.slug === "u10"
-        ? "Trains Sundays from 10am."
+        ? "Training: Sundays from 10am."
         : juniorTeam?.slug === "u11"
-          ? "Trains Sundays from 10am."
+          ? "Training: Sundays from 10am."
           : juniorTeam?.slug === "u12"
-            ? "Training Wednesdays 6-7pm and Sundays 9.30-11am"
+            ? "Training: Wednesdays 6-7pm and Sundays 9.30-11am."
             : juniorTeam?.slug === "u14"
-              ? "Training Wednesdays 6.30-8pm and Sundays 10.30-12pm"
+              ? "Training: Wednesdays 6.30-8pm and Sundays 10.30-12pm."
       : null;
 
   if (team === "juniors") {
