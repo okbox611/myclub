@@ -1,6 +1,6 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-04-26T16:44:46.446Z",
+  "syncedAt": "2026-04-27T01:21:31.862Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
@@ -675,19 +675,19 @@ export default {
           "_id": "leagueTable.rfu.women.66876.124477",
           "name": "Percy Park Panthers Ladies",
           "position": 4,
-          "played": 11,
+          "played": 12,
           "won": 6,
-          "lost": 4,
-          "points": 41
+          "lost": 5,
+          "points": 42
         },
         {
           "_id": "leagueTable.rfu.women.66876.2066",
           "name": "Berwick Upon Tweed Ladies",
           "position": 5,
-          "played": 11,
-          "won": 4,
+          "played": 12,
+          "won": 5,
           "lost": 7,
-          "points": 33
+          "points": 37
         },
         {
           "_id": "leagueTable.rfu.women.66876.126836",
