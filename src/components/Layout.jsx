@@ -10,6 +10,130 @@ import tiktokIcon from "../icon/tiktok.svg";
 export const MobileContext = createContext(false);
 
 const SITE_URL = "https://www.jarroviansrufc.co.uk";
+const DEFAULT_META = {
+  title: "Jarrovians RUFC",
+  description:
+    "Jarrovians RUFC is a friendly rugby union club in Jarrow with senior and junior teams. Fixtures, results, league tables and club updates.",
+};
+
+function getPageMeta(path) {
+  if (path === "/") {
+    return DEFAULT_META;
+  }
+
+  if (path === "/about") {
+    return {
+      title: "About Jarrovians RUFC",
+      description:
+        "Learn about Jarrovians RUFC in Hebburn, our club history, community focus, and the people behind the club.",
+    };
+  }
+
+  if (path === "/gallery") {
+    return {
+      title: "Gallery | Jarrovians RUFC",
+      description:
+        "Browse Jarrovians RUFC photos from matches, club events, and team moments across the club.",
+    };
+  }
+
+  if (path === "/shop") {
+    return {
+      title: "Club Shop | Jarrovians RUFC",
+      description:
+        "View Jarrovians RUFC club shop information and merchandise details.",
+    };
+  }
+
+  if (path === "/sponsors") {
+    return {
+      title: "Sponsors | Jarrovians RUFC",
+      description:
+        "Meet the sponsors who support Jarrovians RUFC, including club partners and player sponsors.",
+    };
+  }
+
+  if (path === "/contact") {
+    return {
+      title: "Contact Jarrovians RUFC",
+      description:
+        "Get in touch with Jarrovians RUFC for playing, sponsorship, junior rugby, or general club enquiries.",
+    };
+  }
+
+  if (path === "/teams") {
+    return {
+      title: "Teams | Jarrovians RUFC",
+      description:
+        "Explore Jarrovians RUFC teams including mens, womens, juniors, and vets rugby.",
+    };
+  }
+
+  const teamMeta = {
+    "/teams/mens1": {
+      title: "Mens 1st XV | Jarrovians RUFC",
+      description:
+        "View the Jarrovians RUFC Mens 1st XV page with team information, league table, fixtures, and results.",
+    },
+    "/teams/mens2": {
+      title: "Mens 2nd XV | Jarrovians RUFC",
+      description:
+        "View the Jarrovians RUFC Mens 2nd XV page with team information, league table, fixtures, and results.",
+    },
+    "/teams/womens": {
+      title: "Womens XV | Jarrovians RUFC",
+      description:
+        "View the Jarrovians RUFC Womens XV page with squad information, league table, fixtures, and results.",
+    },
+    "/teams/juniors": {
+      title: "Junior Rugby | Jarrovians RUFC",
+      description:
+        "Discover junior rugby at Jarrovians RUFC, from U7 through U14, with team pages, photos, and training details.",
+    },
+    "/teams/u7": {
+      title: "U7s | Jarrovians RUFC",
+      description:
+        "Find U7s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u8": {
+      title: "U8s | Jarrovians RUFC",
+      description:
+        "Find U8s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u9": {
+      title: "U9s | Jarrovians RUFC",
+      description:
+        "Find U9s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u10": {
+      title: "U10s | Jarrovians RUFC",
+      description:
+        "Find U10s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u11": {
+      title: "U11s | Jarrovians RUFC",
+      description:
+        "Find U11s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u12": {
+      title: "U12s | Jarrovians RUFC",
+      description:
+        "Find U12s junior rugby information at Jarrovians RUFC, including coaches, team photos, and training times.",
+    },
+    "/teams/u14": {
+      title: "U14s | Jarrovians RUFC",
+      description:
+        "Find U14s junior rugby information at Jarrovians RUFC, including coaches and training details.",
+    },
+    "/teams/vets": {
+      title: "Vets Rugby | Jarrovians RUFC",
+      description:
+        "View the Jarrovians RUFC vets rugby page for over 35s, including captain and team gallery.",
+    },
+  };
+
+  return teamMeta[path] ?? DEFAULT_META;
+}
 
 export default function Layout({ children }) {
   const [showTeams, setShowTeams] = useState(false);
@@ -44,6 +168,17 @@ export default function Layout({ children }) {
   useEffect(() => {
     const normalizedPath = location === "/" ? "/" : location.replace(/\/+$/, "");
     const canonicalUrl = `${SITE_URL}${normalizedPath}`;
+    const pageMeta = getPageMeta(normalizedPath);
+
+    document.title = pageMeta.title;
+
+    let descriptionMeta = document.querySelector('meta[name="description"]');
+    if (!descriptionMeta) {
+      descriptionMeta = document.createElement("meta");
+      descriptionMeta.setAttribute("name", "description");
+      document.head.appendChild(descriptionMeta);
+    }
+    descriptionMeta.setAttribute("content", pageMeta.description);
 
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {
@@ -60,6 +195,38 @@ export default function Layout({ children }) {
       document.head.appendChild(ogUrlMeta);
     }
     ogUrlMeta.setAttribute("content", canonicalUrl);
+
+    let ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    if (!ogTitleMeta) {
+      ogTitleMeta = document.createElement("meta");
+      ogTitleMeta.setAttribute("property", "og:title");
+      document.head.appendChild(ogTitleMeta);
+    }
+    ogTitleMeta.setAttribute("content", pageMeta.title);
+
+    let ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
+    if (!ogDescriptionMeta) {
+      ogDescriptionMeta = document.createElement("meta");
+      ogDescriptionMeta.setAttribute("property", "og:description");
+      document.head.appendChild(ogDescriptionMeta);
+    }
+    ogDescriptionMeta.setAttribute("content", pageMeta.description);
+
+    let twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+    if (!twitterTitleMeta) {
+      twitterTitleMeta = document.createElement("meta");
+      twitterTitleMeta.setAttribute("name", "twitter:title");
+      document.head.appendChild(twitterTitleMeta);
+    }
+    twitterTitleMeta.setAttribute("content", pageMeta.title);
+
+    let twitterDescriptionMeta = document.querySelector('meta[name="twitter:description"]');
+    if (!twitterDescriptionMeta) {
+      twitterDescriptionMeta = document.createElement("meta");
+      twitterDescriptionMeta.setAttribute("name", "twitter:description");
+      document.head.appendChild(twitterDescriptionMeta);
+    }
+    twitterDescriptionMeta.setAttribute("content", pageMeta.description);
   }, [location]);
 
   // Close dropdown on outside click
