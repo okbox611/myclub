@@ -91,6 +91,39 @@ export default function Contact() {
           </p>
         )}
       </form>
+
+      <div style={infoGridStyle}>
+        <section style={infoCardStyle}>
+          <h2 style={sectionTitleStyle}>Club Info</h2>
+          <p style={infoTextStyle}>Luke&apos;s Lane Sports Pavillion</p>
+          <p style={infoTextStyle}>Luke&apos;s Lane Estate</p>
+          <p style={infoTextStyle}>Hebburn</p>
+          <p style={infoTextStyle}>Tyne and Wear</p>
+          <p style={infoTextStyle}>NE31 2BB</p>
+        </section>
+
+        <section style={infoCardStyle}>
+          <h2 style={sectionTitleStyle}>Quick Contact</h2>
+          <div style={buttonRowStyle}>
+            <a
+              href="https://www.facebook.com/JarroviansRUFC/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={secondaryLinkButtonStyle}
+            >
+              View Facebook Page
+            </a>
+            <a
+              href="https://m.me/JarroviansRUFC"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={primaryLinkButtonStyle}
+            >
+              Message us on Facebook
+            </a>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
@@ -111,4 +144,58 @@ const buttonStyle = {
   borderRadius: "6px",
   fontWeight: "600",
   cursor: "pointer",
+};
+
+const infoGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gap: "20px",
+  marginBottom: "35px",
+};
+
+const infoCardStyle = {
+  background: "#111",
+  border: "1px solid #222",
+  borderRadius: "12px",
+  padding: "22px",
+};
+
+const sectionTitleStyle = {
+  color: "#FFC107",
+  marginTop: 0,
+  marginBottom: "14px",
+};
+
+const infoTextStyle = {
+  color: "#ddd",
+  margin: "0 0 6px 0",
+  lineHeight: "1.7",
+};
+
+const buttonRowStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+};
+
+const baseLinkButtonStyle = {
+  display: "inline-block",
+  padding: "12px 16px",
+  borderRadius: "8px",
+  textDecoration: "none",
+  fontWeight: "600",
+  textAlign: "center",
+};
+
+const primaryLinkButtonStyle = {
+  ...baseLinkButtonStyle,
+  background: "#FFC107",
+  color: "#000",
+};
+
+const secondaryLinkButtonStyle = {
+  ...baseLinkButtonStyle,
+  background: "#1a1a1a",
+  color: "#f5f5f5",
+  border: "1px solid #333",
 };

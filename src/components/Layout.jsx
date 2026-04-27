@@ -369,7 +369,6 @@ export default function Layout({ children }) {
               </div>
 
               {[
-                { name: "Gallery", path: "/gallery" },
                 { name: "Shop", path: "/shop" },
                 { name: "Sponsors", path: "/sponsors" },
                 { name: "Contact", path: "/contact" },
@@ -464,7 +463,6 @@ export default function Layout({ children }) {
             )}
           </div>
 
-          <Link href="/gallery" onClick={() => setMobileOpen(false)}>Gallery</Link>
           <Link href="/shop" onClick={() => setMobileOpen(false)}>Shop</Link>
           <Link href="/sponsors" onClick={() => setMobileOpen(false)}>Sponsors</Link>
           <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>

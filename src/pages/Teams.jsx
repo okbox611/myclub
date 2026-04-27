@@ -167,14 +167,18 @@ export default function Teams() {
         <Container>
           <h1 style={centeredSectionTitle}>Junior Rugby</h1>
 
-          <p style={textStyle}>
-            Our junior section covers the age groups from U6 through to U14, giving each team its own space for photos,
-            coaches, training information, fixtures, and club updates.
-          </p>
-
-          <p style={noticeStyle}>
-            From September, each junior age group moves up one year.
-          </p>
+          <section style={joinUsCardStyle}>
+            <h2 style={cardTitle}>Join Us</h2>
+            <p style={cardText}>
+              New players are always welcome across our junior section, whether your child is completely new to rugby or
+              already has playing experience.
+            </p>
+            <p style={cardText}>
+              For a first visit, bring suitable kit for outdoor training, a drink, and any boots or mouthguard your
+              child already has. If you are unsure which age group is right, get in touch through the Contact page and
+              we will point you in the right direction.
+            </p>
+          </section>
 
           <div style={gridStyle}>
             {juniorTeams
@@ -640,6 +644,15 @@ const backLinkStyle = {
   color: "#FFC107",
   textDecoration: "none",
   fontWeight: "600",
+};
+
+const joinUsCardStyle = {
+  background: "#111",
+  border: "1px solid #222",
+  borderRadius: "12px",
+  padding: "20px",
+  marginTop: "28px",
+  marginBottom: "28px",
 };
 
 const juniorOverlayStyle = {

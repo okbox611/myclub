@@ -11,7 +11,6 @@ import Documents from "./pages/Documents";
 import Shop from "./pages/Shop";
 import Sponsors from "./pages/Sponsors";
 import Contact from "./pages/Contact";
-import News from "./pages/News";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 
@@ -32,10 +31,6 @@ function Router() {
         <Route path="/shop" component={Shop} />
         <Route path="/sponsors" component={Sponsors} />
         <Route path="/contact" component={Contact} />
-
-        {/* News */}
-        <Route path="/news/:id" component={News} />
-        <Route path="/news" component={News} />
 
         {/* Admin */}
         <Route path="/login" component={Login} />
