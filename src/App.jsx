@@ -1,4 +1,5 @@
 import { Route, Switch } from "wouter";
+import { Analytics } from "@vercel/analytics/react";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -44,6 +45,7 @@ export default function App() {
   return (
     <AuthProvider>
       <Router />
+      <Analytics />
     </AuthProvider>
   );
 }
