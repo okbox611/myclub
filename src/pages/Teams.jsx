@@ -189,7 +189,6 @@ export default function Teams() {
                     <div style={juniorOverlayStyle}>
                       <h2 style={juniorLandingTitleStyle}>{item.title}</h2>
                       <p style={juniorLandingSummaryStyle}>{item.summary}</p>
-                      <p style={juniorLandingMetaStyle}>{item.nextSeason}</p>
                     </div>
                   </div>
                 </Link>
@@ -207,7 +206,6 @@ export default function Teams() {
 
         <Container>
           <p style={textStyle}>{juniorTeam.summary}</p>
-          <p style={noticeStyle}>{juniorTeam.nextSeason}</p>
 
           <div style={gridStyle}>
             <section style={infoCard}>
