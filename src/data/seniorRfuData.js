@@ -1,6 +1,6 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-04-28T13:22:10.511Z",
+  "syncedAt": "2026-04-28T19:14:45.346Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
@@ -678,7 +678,7 @@ export default {
           "played": 12,
           "won": 6,
           "lost": 5,
-          "points": 42
+          "points": 43
         },
         {
           "_id": "leagueTable.rfu.women.66876.2066",
@@ -687,7 +687,7 @@ export default {
           "played": 12,
           "won": 5,
           "lost": 7,
-          "points": 37
+          "points": 38
         },
         {
           "_id": "leagueTable.rfu.women.66876.126836",
@@ -696,7 +696,7 @@ export default {
           "played": 12,
           "won": 2,
           "lost": 10,
-          "points": 29
+          "points": 30
         },
         {
           "_id": "leagueTable.rfu.women.66876.128506",
@@ -705,7 +705,7 @@ export default {
           "played": 12,
           "won": 1,
           "lost": 10,
-          "points": 21
+          "points": 22
         }
       ]
     }
