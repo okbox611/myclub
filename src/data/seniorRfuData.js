@@ -1,6 +1,6 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-04-29T07:54:46.401Z",
+  "syncedAt": "2026-04-29T13:15:38.130Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
@@ -479,22 +479,22 @@ export default {
           "points": 53
         },
         {
+          "_id": "leagueTable.rfu.second.74138.14785",
+          "name": "North Shields 2nd XV (Crusaders)",
+          "position": 3,
+          "played": 15,
+          "won": 9,
+          "lost": 5,
+          "points": 47
+        },
+        {
           "_id": "leagueTable.rfu.second.74138.25319",
           "name": "Whitley Bay Rockcliff Vikings",
-          "position": 3,
+          "position": 4,
           "played": 15,
           "won": 9,
           "lost": 6,
           "points": 47
-        },
-        {
-          "_id": "leagueTable.rfu.second.74138.14785",
-          "name": "North Shields 2nd XV (Crusaders)",
-          "position": 4,
-          "played": 14,
-          "won": 8,
-          "lost": 5,
-          "points": 42
         },
         {
           "_id": "leagueTable.rfu.second.74138.17047",
@@ -527,9 +527,9 @@ export default {
           "_id": "leagueTable.rfu.second.74138.14491",
           "name": "Newcastle Ravens 1st XV",
           "position": 8,
-          "played": 14,
+          "played": 15,
           "won": 2,
-          "lost": 11,
+          "lost": 12,
           "points": 13
         },
         {
