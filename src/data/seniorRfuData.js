@@ -1,20 +1,19 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-05-02T18:38:59.572Z",
+  "syncedAt": "2026-05-03T01:26:54.241Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
       "sourceUrl": "https://cluster.england-rfu.com/fixtures-and-results/full-matches?season=2025-2026&teamId=11078",
-      "fixtures": [
+      "fixtures": [],
+      "results": [
         {
           "_id": "fixture.rfu.first.1258943",
           "opponent": "Yarm Eagles",
           "date": "2026-05-02T00:00:00.000Z",
           "home": false,
           "resultNote": "Match not set up"
-        }
-      ],
-      "results": [
+        },
         {
           "_id": "fixture.rfu.first.1204138",
           "opponent": "Sedgefield",
