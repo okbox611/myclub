@@ -1,6 +1,6 @@
 export default {
   "season": "2025-2026",
-  "syncedAt": "2026-05-08T07:12:24.105Z",
+  "syncedAt": "2026-05-08T13:03:01.217Z",
   "teams": {
     "first": {
       "label": "Mens 1st XV",
