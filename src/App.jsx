@@ -2,6 +2,7 @@ import { Route, Switch } from "wouter";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
+import { adminEnabled } from "./config";
 
 import Home from "./pages/Home";
 import Teams from "./pages/Teams";
@@ -33,8 +34,8 @@ function Router() {
         <Route path="/contact" component={Contact} />
 
         {/* Admin */}
-        <Route path="/login" component={Login} />
-        <ProtectedRoute path="/admin" component={Admin} />
+        {adminEnabled && <Route path="/login" component={Login} />}
+        {adminEnabled && <ProtectedRoute path="/admin" component={Admin} />}
       </Switch>
     </Layout>
   );

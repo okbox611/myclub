@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useLocation } from "wouter";
+import { adminEnabled } from "../config";
 
 export default function Login() {
   const { login } = useAuth();
@@ -8,6 +9,15 @@ export default function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  if (!adminEnabled) {
+    return (
+      <div>
+        <h1>Login unavailable</h1>
+        <p>This admin area is disabled for this deployment.</p>
+      </div>
+    );
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();

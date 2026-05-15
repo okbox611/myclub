@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { adminEnabled } from "../config";
 
 const AuthContext = createContext();
 
@@ -21,6 +22,10 @@ export const AuthProvider = ({ children }) => {
 
   // Fake login (replace later with real backend)
   const login = (username, password) => {
+    if (!adminEnabled) {
+      return false;
+    }
+
     if (username === "admin" && password === "password") {
       const userData = { username: "admin" };
       setUser(userData);

@@ -40,6 +40,14 @@ import u12TeamImg from "../assets/u12s.jpg";
 import u12CoachMickImg from "../assets/mick.jpg";
 import u12CoachVachImg from "../assets/vach.jpg";
 import u12TrainingImg from "../assets/u12sgame.jpg";
+import u12CaptainThomasImg from "../assets/thomas.jfif";
+import u12CaptainJacobImg from "../assets/jacob.jfif";
+import u12CaptainDjImg from "../assets/dj.jfif";
+import u12AwardsDoc from "../assets/team docs/Awards 2026.docx?url";
+import u12CaptainStatementsDoc from "../assets/team docs/Cap, VC statementsss.docx?url";
+import u12JacobVDoc from "../assets/team docs/Jacob V.docx?url";
+import u12JarroviansDoc from "../assets/team docs/Jarrovian's RUFC.docx?url";
+import u12ParentsPlayerDoc from "../assets/team docs/Parents Player 2026.docx?url";
 import u14TrainingImg from "../assets/u14game.jfif";
 import u9TeamImg from "../assets/u9s.jpg";
 import u9CoachSarahImg from "../assets/sarah.jpg";
@@ -258,6 +266,88 @@ export default function Teams() {
               {juniorTrainingText ? <p style={cardText}>{juniorTrainingText}</p> : null}
             </section>
           </div>
+
+          {juniorTeam?.slug === "u12" ? (
+            <>
+              <h2 style={sectionTitle}>Leadership Team</h2>
+
+              <div style={leadershipGridStyle}>
+                {[
+                  {
+                    name: "Thomas Page",
+                    role: "Captain",
+                    img: u12CaptainThomasImg,
+                  },
+                  {
+                    name: "Jacob Vacher",
+                    role: "Co-Captain",
+                    img: u12CaptainJacobImg,
+                  },
+                  {
+                    name: "DJ Rowan",
+                    role: "Co-Captain",
+                    img: u12CaptainDjImg,
+                  },
+                ].map((leader) => (
+                  <section key={leader.name} style={infoCard}>
+                    <img src={leader.img} alt={`${juniorTeam.title} ${leader.role} ${leader.name}`} style={portraitImageStyle} />
+                    <h3 style={cardTitle}>{leader.name}</h3>
+                    <p style={cardText}>{leader.role}</p>
+                  </section>
+                ))}
+              </div>
+
+              <h2 style={sectionTitle}>Awards</h2>
+
+              <section style={infoCard}>
+                <div style={awardsGridStyle}>
+                  <div>
+                    <h3 style={cardTitle}>Most Improved Players</h3>
+                    <p style={cardText}>Logan Lee &amp; Oscar Ayre</p>
+                  </div>
+
+                  <div>
+                    <h3 style={cardTitle}>Vikings of the Year</h3>
+                    <p style={cardText}>DJ Rowan &amp; Jae Mason</p>
+                  </div>
+
+                  <div>
+                    <h3 style={cardTitle}>Parents Player</h3>
+                    <p style={cardText}>Jacob Vacher</p>
+                  </div>
+
+                  <div>
+                    <h3 style={cardTitle}>Players Player</h3>
+                    <p style={cardText}>Isaac Allen &amp; Thomas Page</p>
+                  </div>
+                </div>
+              </section>
+
+              <h2 style={sectionTitle}>Team Docs</h2>
+
+              <section style={infoCard}>
+                <div style={docsListStyle}>
+                  {[
+                    { label: "Awards 2026", href: u12AwardsDoc },
+                    { label: "Captain & Co-Captain Statements", href: u12CaptainStatementsDoc },
+                    { label: "Jacob V", href: u12JacobVDoc },
+                    { label: "Jarrovian's RUFC", href: u12JarroviansDoc },
+                    { label: "Parents Player 2026", href: u12ParentsPlayerDoc },
+                  ].map((doc) => (
+                    <a
+                      key={doc.label}
+                      href={doc.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={docLinkStyle}
+                    >
+                      {doc.label}
+                    </a>
+                  ))}
+                </div>
+              </section>
+            </>
+          ) : null}
 
           <div style={backLinkRow}>
             <Link href="/teams/juniors" style={backLinkStyle}>
@@ -513,6 +603,13 @@ const supportGridStyle = {
   marginTop: "24px",
 };
 
+const leadershipGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "20px",
+  marginTop: "20px",
+};
+
 const galleryGrid = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
@@ -613,6 +710,15 @@ const panelImageStyle = {
   borderRadius: "10px",
 };
 
+const portraitImageStyle = {
+  width: "100%",
+  height: "320px",
+  objectFit: "contain",
+  objectPosition: "center top",
+  borderRadius: "10px",
+  background: "#0b0b0b",
+};
+
 const staffImageStyle = {
   width: "100%",
   height: "220px",
@@ -632,6 +738,28 @@ const splitCoachImageStyle = {
   height: "220px",
   objectFit: "cover",
   borderRadius: "10px",
+};
+
+const awardsGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+  gap: "20px",
+};
+
+const docsListStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+};
+
+const docLinkStyle = {
+  color: "#FFC107",
+  textDecoration: "none",
+  fontWeight: "600",
+  padding: "10px 14px",
+  border: "1px solid #333",
+  borderRadius: "8px",
+  background: "#161616",
 };
 
 const backLinkRow = {
