@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
 import FixturesList from "../components/FixturesList";
 import ResultsList from "../components/ResultsList";
 import LeagueTable from "../components/LeagueTable";
 import seniorRfuData from "../data/seniorRfuData";
 import { juniorTeams } from "../data/juniorTeams";
+import sanityClient from "../sanityClient";
 
 // Vets
 import terry from "../assets/terry.jfif";
@@ -97,6 +99,32 @@ export default function Teams() {
   const team = params?.team;
   const seniorTeams = seniorRfuData.teams;
   const juniorTeam = juniorTeams.find((item) => item.slug === team);
+  const [womenSection, setWomenSection] = useState(null);
+
+  useEffect(() => {
+    if (team !== "womens") return;
+
+    const query = `*[_type == "womenSection" && _id == "womenSection"][0]{
+      pageTitle,
+      summary,
+      notice,
+      captainName,
+      viceCaptainName,
+      trainingDetails,
+      coaches[]{
+        name,
+        role
+      },
+      "heroImageUrl": heroImage.asset->url,
+      "leadershipImageUrl": leadershipImage.asset->url,
+      downloads[]{
+        title,
+        "url": file.asset->url
+      }
+    }`;
+
+    sanityClient.fetch(query).then(setWomenSection).catch(() => setWomenSection(null));
+  }, [team]);
   const juniorTeamPhoto = juniorTeam?.slug === "u7"
     ? u7TeamImg
     : juniorTeam?.slug === "u8"
@@ -443,20 +471,70 @@ export default function Teams() {
   // WOMENS TEAM
   // ========================
   if (team === "womens") {
+    const womensTitle = womenSection?.pageTitle || "Womens XV";
+    const womensSummary =
+      womenSection?.summary || "A growing and inclusive section offering competitive rugby.";
+    const womensHeroImage = womenSection?.heroImageUrl || ladiesTeam;
+    const womensLeadershipImage = womenSection?.leadershipImageUrl || ladiesCap;
+    const womensCaptain = womenSection?.captainName || "Beth Robinson";
+    const womensViceCaptain = womenSection?.viceCaptainName || "Lia Sundin";
+    const womensCoaches = womenSection?.coaches || [];
+    const womensDownloads = womenSection?.downloads?.filter((item) => item?.url) || [];
+
     return (
       <div>
-        <Hero img={ladiesTeam} title="Womens XV" />
+        <Hero img={womensHeroImage} title={womensTitle} />
 
         <Container>
-          <p style={textStyle}>
-            A growing and inclusive section offering competitive rugby.
-          </p>
+          <p style={textStyle}>{womensSummary}</p>
+
+          {womenSection?.notice ? (
+            <p style={noticeStyle}>{womenSection.notice}</p>
+          ) : null}
+
+          {(womenSection?.trainingDetails || womensCoaches.length > 0 || womensDownloads.length > 0) ? (
+            <div style={supportGridStyle}>
+              {womenSection?.trainingDetails ? (
+                <section style={infoCard}>
+                  <h3 style={cardTitle}>Training</h3>
+                  <p style={cardText}>{womenSection.trainingDetails}</p>
+                </section>
+              ) : null}
+
+              {womensCoaches.length > 0 ? (
+                <section style={infoCard}>
+                  <h3 style={cardTitle}>Coaches and Staff</h3>
+                  <div style={stackStyle}>
+                    {womensCoaches.map((person) => (
+                      <div key={`${person.name}-${person.role || "staff"}`}>
+                        <p style={cardText}>{person.name}</p>
+                        {person.role ? <p style={cardMeta}>{person.role}</p> : null}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {womensDownloads.length > 0 ? (
+                <section style={infoCard}>
+                  <h3 style={cardTitle}>Downloads</h3>
+                  <div style={docsListStyle}>
+                    {womensDownloads.map((doc) => (
+                      <a key={doc.title} href={doc.url} target="_blank" rel="noreferrer" style={docLinkStyle}>
+                        {doc.title}
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+            </div>
+          ) : null}
 
           <h2 style={sectionTitle}>Leadership Team</h2>
 
           <div style={twoColumn}>
             <div style={imageCard}>
-              <img src={ladiesCap} alt="Leadership Team" style={imageStyle} />
+              <img src={womensLeadershipImage} alt="Leadership Team" style={imageStyle} />
             </div>
 
             <div style={tableWrapper}>
@@ -465,7 +543,7 @@ export default function Teams() {
           </div>
 
           <p style={mutedText}>
-            Captain: Beth Robinson | Vice Captain: Lia Sundin
+            Captain: {womensCaptain} | Vice Captain: {womensViceCaptain}
           </p>
 
           <FixturesList items={seniorTeams.women.fixtures} team="women" />
@@ -760,6 +838,12 @@ const docLinkStyle = {
   border: "1px solid #333",
   borderRadius: "8px",
   background: "#161616",
+};
+
+const stackStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
 };
 
 const backLinkRow = {
